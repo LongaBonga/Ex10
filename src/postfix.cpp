@@ -6,8 +6,7 @@ bool isSymbol(char symbol) {
 }
 
 int force(char symbol) {
-  if (symbol == '*' || symbol == '/')
-    return 2;
+  if (symbol == '*' || symbol == '/') return 2;
   if (symbol == '+' || symbol == '-')
     return 1;
   else
@@ -30,14 +29,12 @@ std::string infix2prefix(std::string str) {
         stack.push(str[i]);
 
       } else if (force(str[i]) <= force(stack.get())) {
-        while (!stack.isEmpty() &&
-        (force(str[i]) <= force(stack.get())) && stack.get() != '(')
+        while (!stack.isEmpty() && (force(str[i]) <= force(stack.get())) &&
+               stack.get() != '(')
           queue.push_back(stack.pop());
         stack.push(str[i]);
       }
-    }
-
-    else if (str[i] == '(')
+    } else if (str[i] == '(')
       stack.push(str[i]);
 
     else if (str[i] == ')') {
@@ -49,12 +46,15 @@ std::string infix2prefix(std::string str) {
   while (!stack.isEmpty()) {
     queue.push_back(stack.pop());
   }
+
+  for (int i = 1; i < queue.length(); i++) {
+    if (queue[i] == ' ' && queue[i - 1] == ' ') queue[i] = '#';
+  }
   std::string ans = "";
   ans.push_back(queue[0]);
   for (int i = 1; i < queue.length(); i++) {
-    if (ans.back() != ' ' && isSymbol(queue[i]))
-      ans.push_back(' ');
-    ans.push_back(queue[i]);
+    if (ans.back() != ' ' && isSymbol(queue[i])) ans.push_back(' ');
+    if (queue[i] != '#') ans.push_back(queue[i]);
   }
   return ans;
 }
