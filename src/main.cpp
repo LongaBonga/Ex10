@@ -1,9 +1,8 @@
 // Copyright 2021 Longa_Bonga
 
-#include "postfix.h"
-#include <fstream>
 #include <iostream>
 #include <string>
+#include "postfix.h"
 
 
 int main() {

@@ -22,17 +22,15 @@ std::string infix2prefix(std::string str) {
     if ((str[i] >= '0' && str[i] <= '9') || str[i] == '.' || str[i] == ' ')
       queue.push_back(str[i]);
 
-    else if (isSymbol(str[i]))  // if str[i] + - * /
-    {
-
-      if (stack.isEmpty() || stack.get() == '(')
+    else if (isSymbol(str[i])) {  // if str[i] + - * /
+      if (stack.isEmpty() || stack.get() == '(') {
         stack.push(str[i]);
 
-      else if (force(str[i]) > force(stack.get()))
+      } else if (force(str[i]) > force(stack.get())) {
         stack.push(str[i]);
 
-      else if (force(str[i]) <= force(stack.get())) {
-        while(!stack.isEmpty() && (force(str[i]) <= force(stack.get())) && stack.get() != '(')
+      } else if (force(str[i]) <= force(stack.get())) {
+        while (!stack.isEmpty() && (force(str[i]) <= force(stack.get())) && stack.get() != '(')
           queue.push_back(stack.pop());
         stack.push(str[i]);
       }
@@ -46,7 +44,6 @@ std::string infix2prefix(std::string str) {
         queue.push_back(stack.pop());
       stack.pop();
     }
-
   }
   while (!stack.isEmpty()) {
     queue.push_back(stack.pop());
