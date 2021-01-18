@@ -1,32 +1,20 @@
-// Copyright 2020 GHA Test Team
+// Copyright 2021 Longa_Bonga
+#include "postfix.h"
 #include <gtest/gtest.h>
 #include <string>
-#include "postfix.h"
 
-TEST(PostfixTest, test1) {
-  std::string inf = "2 + 2";
-  std::string postf = infix2postfix(inf);
-  std::string expected = "2 2 +";
-  EXPECT_EQ(expected, postf);
+TEST(PostfixTest, test1_1) {
+  EXPECT_EQ("42.42 42 +", infix2prefix("42.42 + 42"));
 }
 
-TEST(PostfixTest, test2) {
-  std::string inf = "2 + 6 * 3 / (4 - 2)";
-  std::string postf = infix2postfix(inf);
-  std::string expected = "2 6 3 * 4 2 - / +";
-  EXPECT_EQ(expected, postf);
+TEST(PostfixTest, test1_2) {
+  EXPECT_EQ("2 6.0 3 * 4 2 - / +", infix2prefix("2 + 6.0 * 3 / (4 - 2)"));
 }
 
-TEST(PostfixTest, test3) {
-  std::string inf = "(2 + 8.3) * (6 - 3.2)";
-  std::string postf = infix2postfix(inf);
-  std::string expected = "2 8.3 + 6 3.2 - *";
-  EXPECT_EQ(expected, postf);
-}
+TEST(PostfixTest, test1_3) {
+  MyStack<int> Mystack(1);
+  Mystack.push(42);
+  Mystack.pop();
 
-TEST(PostfixTest, test4) {
-  std::string inf = "(6 * (4 - 2) + 5) * (2.6 + 3 * 7) - 9";
-  std::string postf = infix2postfix(inf);
-  std::string expected = "6 4 2 - * 5 + 2.6 3 7 * + * 9 -";
-  EXPECT_EQ(expected, postf);
+  EXPECT_EQ("5.9 8 * 2 9 + * 7 5 - 8 + 9 5 5 * * - 5 + +", infix2prefix("5.9 * 8 * (2 + 9) + (7 - 5 + 8 - 9 * (5 * 5) + 5)"));
 }
