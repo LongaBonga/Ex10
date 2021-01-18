@@ -12,9 +12,5 @@ TEST(PostfixTest, test1_2) {
 }
 
 TEST(PostfixTest, test1_3) {
-  MyStack<int> Mystack(1);
-  Mystack.push(42);
-  Mystack.pop();
-
   EXPECT_EQ("5.9 8 * 2 9 + * 7 5 - 8 + 9 5 5 * * - 5 + +", infix2prefix("5.9 * 8 * (2 + 9) + (7 - 5 + 8 - 9 * (5 * 5) + 5)"));
 }
